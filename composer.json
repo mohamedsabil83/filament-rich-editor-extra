@@ -1,24 +1,23 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "mohamedsabil83/filament-rich-editor-extra",
+    "description": "A set of extra extensions for Filament RichEditor",
     "keywords": [
-        ":vendor_name",
+        "MohamedSabil83",
         "laravel",
-        ":package_slug"
+        "filament-rich-editor-extra"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/mohamedsabil83/filament-rich-editor-extra",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "MohamedSabil83",
+            "email": "me@mohamedsabil83.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.4",
-        "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^11.0||^12.0"
+        "filament/forms": "^4.0",
+        "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -35,13 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "MohamedSabil83\\FilamentRichEditorExtra\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "MohamedSabil83\\FilamentRichEditorExtra\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "MohamedSabil83\\FilamentRichEditorExtra\\FilamentRichEditorExtraServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FilamentRichEditorExtra": "MohamedSabil83\\FilamentRichEditorExtra\\Facades\\FilamentRichEditorExtra"
             }
         }
     },

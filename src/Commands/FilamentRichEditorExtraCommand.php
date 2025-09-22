@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace MohamedSabil83\FilamentRichEditorExtra\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentRichEditorExtraCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-rich-editor-extra';
 
     public $description = 'My command';
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace MohamedSabil83\FilamentRichEditorExtra;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use MohamedSabil83\FilamentRichEditorExtra\Commands\FilamentRichEditorExtraCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class FilamentRichEditorExtraServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('filament-rich-editor-extra')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_migration_table_name_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_filament_rich_editor_extra_table')
+            ->hasCommand(FilamentRichEditorExtraCommand::class);
     }
 }
