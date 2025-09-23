@@ -55,10 +55,12 @@ class TextDirectionPlugin implements RichContentPlugin
             RichEditorTool::make('ltr')
                 ->label(__('LTR'))
                 ->jsHandler('$getEditor()?.chain().focus().setTextDirection(\'ltr\').run()')
+                ->activeJsExpression('$getEditor()?.isActive(\'paragraph\', { dir: \'ltr\' }) || $getEditor()?.isActive(\'heading\', { dir: \'ltr\' })')
                 ->icon(Heroicon::ArrowLeft),
             RichEditorTool::make('rtl')
                 ->label(__('RTL'))
                 ->jsHandler('$getEditor()?.chain().focus().setTextDirection(\'rtl\').run()')
+                ->activeJsExpression('$getEditor()?.isActive(\'paragraph\', { dir: \'rtl\' }) || $getEditor()?.isActive(\'heading\', { dir: \'rtl\' })')
                 ->icon(Heroicon::ArrowRight),
         ];
     }
