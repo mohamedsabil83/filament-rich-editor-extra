@@ -2,9 +2,12 @@
 
 namespace MohamedSabil83\FilamentRichEditorExtra;
 
+use Filament\Forms\Components\RichEditor;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
+use MohamedSabil83\FilamentRichEditorExtra\Plugins\TextDirectionPlugin;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use MohamedSabil83\FilamentRichEditorExtra\Commands\FilamentRichEditorExtraCommand;
 
 class FilamentRichEditorExtraServiceProvider extends PackageServiceProvider
 {
@@ -16,10 +19,19 @@ class FilamentRichEditorExtraServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('filament-rich-editor-extra')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_filament_rich_editor_extra_table')
-            ->hasCommand(FilamentRichEditorExtraCommand::class);
+            ->name('filament-rich-editor-extra');
+    }
+
+    public function bootingPackage(): void
+    {
+        FilamentAsset::register([
+            Js::make('filament-rich-editor-extra/text-direction', __DIR__.'/../resources/js/dist/filament/filament-rich-editor-extra/TextDirection.js')->loadedOnRequest(),
+        ]);
+
+        RichEditor::configureUsing(function (RichEditor $richEditor) {
+            $richEditor->plugins([
+                TextDirectionPlugin::make(),
+            ]);
+        });
     }
 }

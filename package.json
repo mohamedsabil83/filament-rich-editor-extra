@@ -1,0 +1,10 @@
+{
+    "type": "module",
+    "scripts": {
+        "build": "node bin/build.js"
+    },
+    "devDependencies": {
+        "@tiptap/core": "^3.5.0",
+        "esbuild": "^0.25.10"
+    }
+}
