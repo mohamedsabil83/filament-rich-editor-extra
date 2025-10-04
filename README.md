@@ -11,6 +11,7 @@ Extra goodies for the Filament Forms RichEditor (v4). This package ships small, 
 
 ### Currently included:
 - Text direction (LTR / RTL).
+- More to come...
 
 ## Requirements
 
