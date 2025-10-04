@@ -62,10 +62,7 @@
         "laravel": {
             "providers": [
                 "MohamedSabil83\\FilamentRichEditorExtra\\FilamentRichEditorExtraServiceProvider"
-            ],
-            "aliases": {
-                "FilamentRichEditorExtra": "MohamedSabil83\\FilamentRichEditorExtra\\Facades\\FilamentRichEditorExtra"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

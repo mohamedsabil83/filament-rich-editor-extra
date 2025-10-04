@@ -6,6 +6,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use MohamedSabil83\FilamentRichEditorExtra\Plugins\TextDirectionPlugin;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -19,7 +20,10 @@ class FilamentRichEditorExtraServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('filament-rich-editor-extra');
+            ->name('filament-rich-editor-extra')
+            ->hasInstallCommand(function (InstallCommand $command): void {
+                $command->askToStarRepoOnGitHub('mohamedsabil83/filament-rich-editor-extra');
+            });
     }
 
     public function bootingPackage(): void
