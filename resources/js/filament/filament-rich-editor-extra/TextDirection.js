@@ -1,7 +1,7 @@
 import { Extension } from '@tiptap/core'
 
 export default Extension.create({
-    name: 'textDirection',
+    name: 'customTextDirection',
 
     addOptions() {
         return {
@@ -32,29 +32,22 @@ export default Extension.create({
     addCommands() {
         return {
             setTextDirection:
-                (dir) =>
+                (dir, position = null) =>
                     ({commands}) => {
                         if (!dir) {
-                            return (
-                                commands.updateAttributes('paragraph', {dir: null}) ||
-                                commands.updateAttributes('heading', {dir: null})
-                            )
+                            return this.options.types.some((type) => commands.updateAttributes(type, {dir: null}, position))
                         }
 
-                        if (!['ltr', 'rtl'].includes(dir)) {
+                        if (!['ltr', 'rtl', 'auto'].includes(dir)) {
                             return false
                         }
 
-                        const updatedParagraph = commands.updateAttributes('paragraph', {dir})
-                        const updatedHeading = commands.updateAttributes('heading', {dir})
-
-                        return updatedParagraph || updatedHeading
+                        return this.options.types.some((type) => commands.updateAttributes(type, {dir}, position))
                     },
             unsetTextDirection:
-                () =>
+                (position = null) =>
                     ({commands}) =>
-                        commands.updateAttributes('paragraph', {dir: null}) ||
-                        commands.updateAttributes('heading', {dir: null}),
+                        this.options.types.some((type) => commands.updateAttributes(type, {dir: null}, position)),
         }
     },
 })

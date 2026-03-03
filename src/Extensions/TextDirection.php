@@ -6,7 +6,7 @@ use Tiptap\Core\Extension;
 
 class TextDirection extends Extension
 {
-    public static $name = 'textDirection';
+    public static $name = 'customTextDirection';
 
     public function addOptions(): array
     {
@@ -24,7 +24,7 @@ class TextDirection extends Extension
                     'dir' => [
                         'default' => null,
                         'parseHTML' => fn ($element) => $element->getAttribute('dir'),
-                        'renderHTML' => fn ($attributes) => ['dir' => $attributes->dir],
+                        // 'renderHTML' => fn ($attributes) => ['dir' => $attributes->dir],
                     ],
                 ],
             ],
