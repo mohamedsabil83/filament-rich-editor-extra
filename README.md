@@ -12,6 +12,7 @@ Extra goodies for the Filament Forms RichEditor (v4). This package ships small, 
 ### Currently included:
 - **Text Direction** — `ltr` / `rtl` toolbar buttons that set the direction of the current block.
 - **Emoji** — a toolbar button that opens a full emoji picker (search, categories, skin tones, the complete Unicode set) and inserts the chosen emoji as plain text.
+- **Fullscreen** — a toolbar button that expands the editor to fill the viewport (toggle again or press `Esc` to exit).
 - More to come...
 
 ## Requirements
@@ -44,6 +45,7 @@ Each extension adds one or more buttons that you reference by name:
 |----------------|------------------|
 | Text Direction | `ltr`, `rtl`     |
 | Emoji          | `emoji`          |
+| Fullscreen     | `fullscreen`     |
 
 ```php
 use Filament\Forms\Components\RichEditor;
@@ -54,6 +56,7 @@ RichEditor::make('content')
         ['bold', 'italic', 'link'],
         ['ltr', 'rtl'],
         ['emoji'],
+        ['fullscreen'],
     ]);
 ```
 
@@ -82,6 +85,15 @@ The picker is stacked to the toolbar button and is fully responsive: on desktop 
 
 > [!NOTE]
 > The emoji data (~1&nbsp;MB) is fetched once from a public CDN and then cached in the browser's IndexedDB, so the picker needs network access the first time it is opened.
+
+### Fullscreen
+
+Adds a **fullscreen** button that expands the editor (toolbar and content) to fill the viewport so you can write without distractions. Click the button again, or press `Esc`, to return to the inline layout. It is a client-side toggle only — nothing extra is saved with the content.
+
+```php
+RichEditor::make('content')
+    ->toolbarButtons(['fullscreen']);
+```
 
 ## Testing
 
