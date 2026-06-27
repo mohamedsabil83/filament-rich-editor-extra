@@ -30,6 +30,10 @@ const entryPoints = [
         in: './resources/js/filament/filament-rich-editor-extra/Emoji.js',
         out: './resources/js/dist/filament/filament-rich-editor-extra/Emoji.js',
     },
+    {
+        in: './resources/js/filament/filament-rich-editor-extra/Fullscreen.js',
+        out: './resources/js/dist/filament/filament-rich-editor-extra/Fullscreen.js',
+    },
 ]
 
 entryPoints.forEach(({ in: entryPoint, out: outfile }) =>
