@@ -13,6 +13,7 @@ Extra goodies for the Filament Forms RichEditor (v4). This package ships small, 
 - **Text Direction** — `ltr` / `rtl` toolbar buttons that set the direction of the current block.
 - **Emoji** — a toolbar button that opens a full emoji picker (search, categories, skin tones, the complete Unicode set) and inserts the chosen emoji as plain text.
 - **Fullscreen** — a toolbar button that expands the editor to fill the viewport (toggle again or press `Esc` to exit).
+- **Sticky Toolbar** — keeps the toolbar pinned to the top of the viewport while scrolling through a tall editor. Enabled per editor with the `->stickyToolbar()` method.
 - More to come...
 
 ## Requirements
@@ -37,9 +38,7 @@ php artisan filament-rich-editor-extra:install
 
 ## Usage
 
-Once installed, the extensions are registered automatically on **every** RichEditor instance — no additional setup is required. You only need to opt the toolbar buttons you want into a specific editor via `->toolbarButtons()`.
-
-Each extension adds one or more buttons that you reference by name:
+Once installed, the extensions are registered automatically on **every** RichEditor instance — no additional setup is required. Most extensions add toolbar buttons that you opt into a specific editor via `->toolbarButtons()`:
 
 | Extension      | Button name(s)   |
 |----------------|------------------|
@@ -47,11 +46,14 @@ Each extension adds one or more buttons that you reference by name:
 | Emoji          | `emoji`          |
 | Fullscreen     | `fullscreen`     |
 
+Sticky Toolbar is not a toolbar button — it is enabled with the `->stickyToolbar()` method (see below).
+
 ```php
 use Filament\Forms\Components\RichEditor;
 
 RichEditor::make('content')
     ->label('Content')
+    ->stickyToolbar()
     ->toolbarButtons([
         ['bold', 'italic', 'link'],
         ['ltr', 'rtl'],
@@ -93,6 +95,24 @@ Adds a **fullscreen** button that expands the editor (toolbar and content) to fi
 ```php
 RichEditor::make('content')
     ->toolbarButtons(['fullscreen']);
+```
+
+### Sticky Toolbar
+
+Keeps the toolbar `position: sticky` so it stays pinned to the top of the viewport while you scroll through an editor that is taller than the screen. For an editor that fits within the viewport it has no visible effect, so the toolbar only follows along when there is something to scroll past. While stuck, the toolbar sits above the editor content and surrounding page chrome but below modals and notifications, so those still cover it.
+
+Enable it per editor with the `->stickyToolbar()` method — it is not a toolbar button:
+
+```php
+RichEditor::make('content')
+    ->stickyToolbar();
+```
+
+Pass a boolean or a closure to enable it conditionally:
+
+```php
+RichEditor::make('content')
+    ->stickyToolbar(fn (): bool => $this->isLongForm);
 ```
 
 ## Testing
