@@ -5,6 +5,7 @@ namespace MohamedSabil83\FilamentRichEditorExtra;
 use Filament\Forms\Components\RichEditor;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
+use MohamedSabil83\FilamentRichEditorExtra\Plugins\EmojiPlugin;
 use MohamedSabil83\FilamentRichEditorExtra\Plugins\TextDirectionPlugin;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -30,11 +31,13 @@ class FilamentRichEditorExtraServiceProvider extends PackageServiceProvider
     {
         FilamentAsset::register([
             Js::make('filament-rich-editor-extra/text-direction', __DIR__.'/../resources/js/dist/filament/filament-rich-editor-extra/TextDirection.js')->loadedOnRequest(),
+            Js::make('filament-rich-editor-extra/emoji', __DIR__.'/../resources/js/dist/filament/filament-rich-editor-extra/Emoji.js')->loadedOnRequest(),
         ]);
 
         RichEditor::configureUsing(function (RichEditor $richEditor) {
             $richEditor->plugins([
                 TextDirectionPlugin::make(),
+                EmojiPlugin::make(),
             ]);
         });
     }

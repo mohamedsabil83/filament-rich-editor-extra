@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A Laravel/Filament package that adds extra tools to the Filament v4 Forms `RichEditor` (which is built on Tiptap). Currently ships one extension: **Text Direction** (LTR/RTL toolbar buttons). It is a library/package — there is no host app; it is exercised via Orchestra Testbench.
+A Laravel/Filament package that adds extra tools to the Filament v4 Forms `RichEditor` (which is built on Tiptap). Ships two extensions: **Text Direction** (LTR/RTL toolbar buttons) and **Emoji** (a toolbar button opening a picker that inserts Unicode emoji characters). It is a library/package — there is no host app; it is exercised via Orchestra Testbench.
+
+The Emoji feature is a deliberately lighter variant of the three-layer pattern: emojis are inserted as plain Unicode text via core Tiptap's `insertContent`, so there is **no PHP node to mirror** (`getTipTapPhpExtensions()` returns `[]`). The whole UI lives client-side in the JS extension, which bundles the `emoji-picker-element` web component (full mobile/social-style picker: search, categories, skin tones, complete Unicode set; its emoji data is fetched once from a CDN and cached in IndexedDB). The extension adds two commands: `insertEmoji` (wraps `insertContent`) and `openEmojiPicker` (mounts a floating popup, positions it at the caret, and inserts the chosen emoji). The toolbar button is a plain `jsHandler` calling `openEmojiPicker()` — there is no Filament `Action`/modal, so `getEditorActions()` returns `[]`.
 
 ## Commands
 
