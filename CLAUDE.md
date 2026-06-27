@@ -23,7 +23,7 @@ Each editor feature is a **plugin** wiring three layers together. To add a featu
 
 1. **PHP Tiptap extension** (`src/Extensions/`) — extends `Tiptap\Core\Extension` (from the `ueberdosis/tiptap-php` lib, used server-side to parse/render rich content). Defines node attributes and types. This is the server-side mirror of the JS extension.
 
-2. **JS Tiptap extension** (`resources/js/filament/.../*.js`) — the real client-side Tiptap extension: attributes, `parseHTML`/`renderHTML`, and `addCommands` (the editor commands the toolbar buttons invoke). **The PHP extension in (1) must mirror the attribute/type definitions here** so server-rendered HTML matches what the editor produces.
+2. **JS Tiptap extension** (`resources/js/filament/.../*.js`) — the real client-side Tiptap extension, registering the node attributes via `parseHTML`/`renderHTML`. Prefer Tiptap's native/core features over hand-rolling: e.g. Text Direction relies on the `setTextDirection`/`unsetTextDirection` commands built into `@tiptap/core` (always registered by the editor as the core `textDirection` extension) and only adds the `dir` global attribute the core extension omits unless a global direction is configured. **The PHP extension in (1) must mirror the attribute/type definitions here** so server-rendered HTML matches what the editor produces. Note `tiptap-php` has no native text-direction equivalent, so the PHP side stays a custom extension.
 
 3. **Plugin** (`src/Plugins/`) — implements Filament's `RichContentPlugin` contract, gluing 1 and 2 together. Its methods:
    - `getTipTapPhpExtensions()` → the PHP extension instances

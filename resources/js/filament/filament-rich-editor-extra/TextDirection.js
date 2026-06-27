@@ -1,5 +1,14 @@
 import { Extension } from '@tiptap/core'
 
+// Tiptap ships a native TextDirection extension inside @tiptap/core. It is always
+// registered as a core extension by the editor, so its `setTextDirection` and
+// `unsetTextDirection` commands (used by the toolbar buttons) are available out of
+// the box — we no longer reimplement them here.
+//
+// That native extension only registers the `dir` global attribute when a global
+// `direction` is configured on the editor, which Filament leaves unset. So this
+// extension's sole job is to register the `dir` attribute on the relevant node
+// types, giving the native commands somewhere to store the per-node direction.
 export default Extension.create({
     name: 'customTextDirection',
 
@@ -16,38 +25,17 @@ export default Extension.create({
                 attributes: {
                     dir: {
                         default: null,
-                        parseHTML: element => ({dir: element.getAttribute('dir')}),
+                        parseHTML: element => element.getAttribute('dir'),
                         renderHTML: attributes => {
                             if (!attributes.dir) {
                                 return {}
                             }
+
                             return {dir: attributes.dir}
                         },
                     },
                 },
             },
         ]
-    },
-
-    addCommands() {
-        return {
-            setTextDirection:
-                (dir, position = null) =>
-                    ({commands}) => {
-                        if (!dir) {
-                            return this.options.types.some((type) => commands.updateAttributes(type, {dir: null}, position))
-                        }
-
-                        if (!['ltr', 'rtl', 'auto'].includes(dir)) {
-                            return false
-                        }
-
-                        return this.options.types.some((type) => commands.updateAttributes(type, {dir}, position))
-                    },
-            unsetTextDirection:
-                (position = null) =>
-                    ({commands}) =>
-                        this.options.types.some((type) => commands.updateAttributes(type, {dir: null}, position)),
-        }
     },
 })
