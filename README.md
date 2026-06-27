@@ -7,10 +7,11 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mohamedsabil83/filament-rich-editor-extra/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mohamedsabil83/filament-rich-editor-extra/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mohamedsabil83/filament-rich-editor-extra.svg?style=flat-square)](https://packagist.org/packages/mohamedsabil83/filament-rich-editor-extra)
 
-Extra goodies for the Filament Forms RichEditor (v4). This package ships small, focused extensions that plug straight into your existing editor.
+Extra goodies for the Filament Forms RichEditor (v4). This package ships small, focused extensions that plug straight into your existing editor — no configuration required.
 
 ### Currently included:
-- Text direction (LTR / RTL).
+- **Text Direction** — `ltr` / `rtl` toolbar buttons that set the direction of the current block.
+- **Emoji** — a toolbar button that opens a full emoji picker (search, categories, skin tones, the complete Unicode set) and inserts the chosen emoji as plain text.
 - More to come...
 
 ## Requirements
@@ -35,13 +36,14 @@ php artisan filament-rich-editor-extra:install
 
 ## Usage
 
-Once installed, all tools will be available for all RichEditor instances. The plugin registers itself automatically, so no additional configuration is required.
+Once installed, the extensions are registered automatically on **every** RichEditor instance — no additional setup is required. You only need to opt the toolbar buttons you want into a specific editor via `->toolbarButtons()`.
 
-### Text Direction
+Each extension adds one or more buttons that you reference by name:
 
-You’ll see two new toolbar buttons: LTR and RTL.
-
-Example:
+| Extension      | Button name(s)   |
+|----------------|------------------|
+| Text Direction | `ltr`, `rtl`     |
+| Emoji          | `emoji`          |
 
 ```php
 use Filament\Forms\Components\RichEditor;
@@ -49,9 +51,37 @@ use Filament\Forms\Components\RichEditor;
 RichEditor::make('content')
     ->label('Content')
     ->toolbarButtons([
-        'rtl', 'ltr',
+        ['bold', 'italic', 'link'],
+        ['ltr', 'rtl'],
+        ['emoji'],
     ]);
 ```
+
+> [!TIP]
+> Pass a nested array of button names to group them into separate toolbar sections, or a flat array (e.g. `['emoji', 'ltr', 'rtl']`) to keep them together.
+
+### Text Direction
+
+Adds **LTR** and **RTL** buttons that set the text direction of the current block (paragraph or heading). The direction is stored as a `dir` attribute and rendered identically on the server, so it round-trips through saving and display.
+
+```php
+RichEditor::make('content')
+    ->toolbarButtons(['ltr', 'rtl']);
+```
+
+### Emoji
+
+Adds an **emoji** button that opens a full-featured picker (search, categories, skin-tone selection, and the complete Unicode emoji set). Selecting an emoji inserts it as a plain Unicode character, so the content stays portable — no custom node or extra markup is saved.
+
+```php
+RichEditor::make('content')
+    ->toolbarButtons(['emoji']);
+```
+
+The picker is stacked to the toolbar button and is fully responsive: on desktop it opens beneath the button (flipping above it when there isn't enough room), and on small/mobile screens it appears as a bottom sheet.
+
+> [!NOTE]
+> The emoji data (~1&nbsp;MB) is fetched once from a public CDN and then cached in the browser's IndexedDB, so the picker needs network access the first time it is opened.
 
 ## Testing
 

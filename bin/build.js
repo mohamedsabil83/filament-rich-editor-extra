@@ -7,7 +7,7 @@ async function compile(options) {
     await context.dispose()
 }
 
-compile({
+const defaultOptions = {
     define: {
         'process.env.NODE_ENV': `'production'`,
     },
@@ -19,6 +19,23 @@ compile({
     treeShaking: true,
     target: ['es2020'],
     minify: true,
-    entryPoints: ['./resources/js/filament/filament-rich-editor-extra/TextDirection.js'],
-    outfile: './resources/js/dist/filament/filament-rich-editor-extra/TextDirection.js',
-})
+}
+
+const entryPoints = [
+    {
+        in: './resources/js/filament/filament-rich-editor-extra/TextDirection.js',
+        out: './resources/js/dist/filament/filament-rich-editor-extra/TextDirection.js',
+    },
+    {
+        in: './resources/js/filament/filament-rich-editor-extra/Emoji.js',
+        out: './resources/js/dist/filament/filament-rich-editor-extra/Emoji.js',
+    },
+]
+
+entryPoints.forEach(({ in: entryPoint, out: outfile }) =>
+    compile({
+        ...defaultOptions,
+        entryPoints: [entryPoint],
+        outfile,
+    }),
+)

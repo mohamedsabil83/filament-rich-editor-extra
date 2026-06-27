@@ -5,6 +5,7 @@
     },
     "devDependencies": {
         "@tiptap/core": "^3.20.0",
+        "emoji-picker-element": "^1.29.1",
         "esbuild": "^0.28.1"
     },
     "allowScripts": {
